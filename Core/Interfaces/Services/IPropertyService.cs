@@ -14,5 +14,6 @@ namespace Core.Interfaces.Services
         Task<IEnumerable<Property>> Filter(FilterPropertiesDTO filter);
         Task<Property> CreateProperty(Property property);
         Task<Property> UpdateProperty(int idProperty,Property property);
+        Task<Property> UpdatePrice(int idProperty, decimal price);
     }
 }

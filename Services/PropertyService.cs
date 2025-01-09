@@ -116,5 +116,18 @@ namespace Services
                 throw new Exception(validationResult.Errors.First().ErrorMessage);
             }
         }
+
+        public async Task<Property> UpdatePrice(int idProperty, decimal price)
+        {
+            var propertyToUpdate = await _unitOfWork.PropertyRepository.GetByIdAsync(idProperty);
+            if (propertyToUpdate == null)
+            {
+                throw new Exception("Property not found");
+            }
+            propertyToUpdate.Price = price;
+            await _unitOfWork.PropertyRepository.Update(propertyToUpdate);
+            await _unitOfWork.CommitAsync();
+            return propertyToUpdate;
+        }
     }
 }

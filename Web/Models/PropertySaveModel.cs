@@ -9,4 +9,9 @@
         public int Year { get; set; }
         public int IdOwner { get; set; }
     }
+
+    public class PropertyUpdatePriceModel
+    {
+       public decimal Price { get; set; }
+    }
 }
