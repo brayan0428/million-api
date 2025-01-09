@@ -31,7 +31,7 @@ builder.Services.AddScoped<IPropertyTraceRepository, PropertyTraceRepository>();
 
 // Services
 builder.Services.AddScoped<IPropertyService, PropertyService>();
-
+builder.Services.AddScoped<IPropertyImageService, PropertyImageService>();
 
 var app = builder.Build();
 
@@ -47,5 +47,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles();
 
 app.Run();

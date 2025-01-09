@@ -12,6 +12,7 @@ namespace Web.Mappers
             CreateMap<Property, PropertyModel>();
             CreateMap<Owner, OwnerModel>();
             CreateMap<Property, PropertySaveModel>();
+            CreateMap<PropertyImage, PropertyImageModel>();
 
             //Model to Entity
             CreateMap<PropertyModel, Property>();
