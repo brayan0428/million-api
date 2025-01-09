@@ -34,5 +34,20 @@ namespace Web.Controllers
             var properties = await _propertyService.Filter(filter);
             return Ok(_mapper.Map<IEnumerable<Property>, IEnumerable<PropertyModel>>(properties));
         }
+
+        [HttpPost]
+        public async Task<ActionResult<PropertySaveModel>> CreateProperty([FromBody] PropertySaveModel propertyModel)
+        {
+            try
+            {
+                var property = _mapper.Map<PropertySaveModel, Property>(propertyModel);
+                var createdProperty = await _propertyService.CreateProperty(property);
+                return Ok(_mapper.Map<Property, PropertySaveModel>(createdProperty));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

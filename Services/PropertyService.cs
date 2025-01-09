@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Core.Interfaces.Services;
+using Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,32 @@ namespace Services
                 properties = properties.Where(p => p.IdOwner == filter.IdOwner.Value);
             }
             return properties;
+        }
+
+        public async Task<Property> CreateProperty(Property property)
+        {
+            PropertyValidator propertyValidator = new PropertyValidator();
+            var validationResult = await propertyValidator.ValidateAsync(property);
+            if (validationResult.IsValid)
+            {
+                var existOwner = await _unitOfWork.OwnerRepository.GetByIdAsync(property.IdOwner);
+                if (existOwner == null)
+                {
+                    throw new Exception("Owner is not valid");
+                }
+                var existCodeInternal = await _unitOfWork.PropertyRepository.GetAsync(p => p.CodeInternal == property.CodeInternal);
+                if (existCodeInternal.Any())
+                {
+                    throw new Exception("CodeInternal already exist");
+                }
+                await _unitOfWork.PropertyRepository.AddAsync(property);
+                await _unitOfWork.CommitAsync();
+                return property;
+            }
+            else
+            {
+                throw new Exception(validationResult.Errors.First().ErrorMessage);
+            }
         }
     }
 }

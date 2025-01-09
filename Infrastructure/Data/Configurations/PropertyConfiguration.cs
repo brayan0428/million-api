@@ -21,6 +21,7 @@ namespace Infrastructure.Data.Configurations
             builder.Property(p => p.CodeInternal).IsRequired().HasMaxLength(20);
             builder.Property(p => p.Year).IsRequired();
             builder.HasOne(p => p.Owner).WithMany(o => o.Properties).HasForeignKey(p => p.IdOwner);
+            builder.HasIndex(p => p.CodeInternal).IsUnique();
             builder.ToTable("Properties");
         }
     }
