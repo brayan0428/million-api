@@ -21,6 +21,7 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new PropertyConfiguration());
             modelBuilder.ApplyConfiguration(new PropertyImageConfiguration());
             modelBuilder.ApplyConfiguration(new PropertyTraceConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             // Seed para Owners
             modelBuilder.Entity<Owner>().HasData(
@@ -37,6 +38,28 @@ namespace Infrastructure.Data
                 new Property { IdProperty = 3, Name = "Finca Campestre", Address = "Kilómetro 15 vía al Llano, Villavicencio", Price = 800000000, CodeInternal = "PROP003", Year = 2010, IdOwner = 3 },
                 new Property { IdProperty = 4, Name = "Local Comercial", Address = "Zona Rosa, Medellín", Price = 950000000, CodeInternal = "PROP004", Year = 2018, IdOwner = 4 },
                 new Property { IdProperty = 5, Name = "Penthouse de Lujo", Address = "Edificio Ocean View, Santa Marta", Price = 1200000000, CodeInternal = "PROP005", Year = 2019, IdOwner = 1 }
+            );
+
+            //Seed para Users
+            var adminPassword = BCrypt.Net.BCrypt.HashPassword("Admin123");
+            var userPassword = BCrypt.Net.BCrypt.HashPassword("User123");
+
+            // Insertar datos iniciales
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Nombre = "Admin",
+                    Email = "admin@example.com",
+                    PasswordHash = adminPassword
+                },
+                new User
+                {
+                    Id = 2,
+                    Nombre = "User",
+                    Email = "user@example.com",
+                    PasswordHash = userPassword
+                }
             );
         }
     }

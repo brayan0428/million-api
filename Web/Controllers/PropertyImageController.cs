@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Core.Entities;
 using Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
 namespace Web.Controllers
 {
+    [Authorize]
     [Route("api/property-image")]
     [ApiController]
     public class PropertyImageController : ControllerBase
