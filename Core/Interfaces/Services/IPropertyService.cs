@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.DTOs;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Core.Interfaces.Services
     public interface IPropertyService
     {
         Task<IEnumerable<Property>> GetAll();
+        Task<IEnumerable<Property>> Filter(FilterPropertiesDTO filter);
     }
 }
