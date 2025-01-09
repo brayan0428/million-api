@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Configurations
         {
             builder.HasKey(p => p.IdPropertyImage);
             builder.Property(p => p.IdPropertyImage).UseIdentityColumn();
-            builder.Property(p => p.File).IsRequired().HasColumnType("varbinary(max)");
+            builder.Property(p => p.Url).IsRequired();
             builder.Property(p => p.Enabled).IsRequired();
             builder.HasOne(p => p.Property).WithMany(p => p.PropertyImages).HasForeignKey(p => p.IdProperty);
         }

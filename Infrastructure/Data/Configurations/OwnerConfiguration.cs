@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Configurations
             builder.Property(p => p.IdOwner).UseIdentityColumn();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(255);
             builder.Property(p => p.Address).IsRequired().HasMaxLength(255);
-            builder.Property(p => p.Photo).HasColumnType("varbinary(max)");
+            builder.Property(p => p.Photo);
             builder.Property(p => p.Birthday).HasColumnType("date");
             builder.HasMany(o => o.Properties).WithOne(p => p.Owner).HasForeignKey(p => p.IdOwner);
             builder.ToTable("Owners");
