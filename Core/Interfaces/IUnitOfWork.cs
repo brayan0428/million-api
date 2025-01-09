@@ -13,6 +13,7 @@ namespace Core.Interfaces
         IPropertyRepository PropertyRepository { get; }
         IPropertyTraceRepository PropertyTraceRepository { get; }
         IPropertyImageRepository PropertyImageRepository { get; }
+        IUserRepository UserRepository { get; }
         Task<int> CommitAsync();
     }
 }

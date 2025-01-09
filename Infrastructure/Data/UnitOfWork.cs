@@ -21,7 +21,7 @@ namespace Infrastructure.Data
         public IPropertyRepository PropertyRepository => new PropertyRepository(_context);
         public IPropertyImageRepository PropertyImageRepository => new PropertyImageRepository(_context);
         public IPropertyTraceRepository PropertyTraceRepository => new PropertyTraceRepository(_context);
-
+        public IUserRepository UserRepository => new UserRepository(_context);
         public async Task<int> CommitAsync()
         {
             return await _context.SaveChangesAsync();
