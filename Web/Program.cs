@@ -83,6 +83,12 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
+var env = app.Services.GetRequiredService<IWebHostEnvironment>();
+if (string.IsNullOrEmpty(env.WebRootPath))
+{
+    env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

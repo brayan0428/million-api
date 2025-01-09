@@ -25,6 +25,12 @@ El proyecto está dividido en varias capas para una mejor organización y separa
 
 - .NET 8 SDK
 - SQL Server (Con base de datos MILLION creada)
+- Tener instalado globalmente dotnet-ef
+    - Si no lo tiene instalado, puede hacerlo ejecutando el siguiente comando
+        ~~~    
+        dotnet tool install --global dotnet-ef
+        ~~~
+
 
 ### Configuración de la Base de Datos
 
@@ -139,3 +145,8 @@ dotnet run --project Web
 **Método:** `POST`  
 **Descripción:** Agregar imagen a una propiedad
 **Cuerpo petición**: Subir una imagen
+
+
+
+
+
