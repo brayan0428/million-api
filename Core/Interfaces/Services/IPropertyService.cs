@@ -13,5 +13,6 @@ namespace Core.Interfaces.Services
         Task<IEnumerable<Property>> GetAll();
         Task<IEnumerable<Property>> Filter(FilterPropertiesDTO filter);
         Task<Property> CreateProperty(Property property);
+        Task<Property> UpdateProperty(int idProperty,Property property);
     }
 }

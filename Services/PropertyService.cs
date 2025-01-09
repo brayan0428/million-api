@@ -75,5 +75,46 @@ namespace Services
                 throw new Exception(validationResult.Errors.First().ErrorMessage);
             }
         }
+
+        public async Task<Property> UpdateProperty(int idProperty,Property property)
+        {
+
+            PropertyValidator propertyValidator = new PropertyValidator();
+            var validationResult = await propertyValidator.ValidateAsync(property);
+            if (validationResult.IsValid)
+            {
+                var propertyToUpdate = await _unitOfWork.PropertyRepository.GetByIdAsync(idProperty);
+                if (propertyToUpdate == null)
+                {
+                    throw new Exception("Property not found");
+                }
+                var existOwner = await _unitOfWork.OwnerRepository.GetByIdAsync(property.IdOwner);
+                if (existOwner == null)
+                {
+                    throw new Exception("Owner is not valid");
+                }
+                if(propertyToUpdate.CodeInternal != property.CodeInternal)
+                {
+                    var existCodeInternal = await _unitOfWork.PropertyRepository.GetAsync(p => p.CodeInternal == property.CodeInternal);
+                    if (existCodeInternal.Any())
+                    {
+                        throw new Exception("CodeInternal already exist");
+                    }
+                }
+                propertyToUpdate.Name = property.Name;
+                propertyToUpdate.Address = property.Address;
+                propertyToUpdate.Price = property.Price;
+                propertyToUpdate.CodeInternal = property.CodeInternal;
+                propertyToUpdate.Year = property.Year;
+                propertyToUpdate.IdOwner = property.IdOwner;
+                await _unitOfWork.PropertyRepository.Update(propertyToUpdate);
+                await _unitOfWork.CommitAsync();
+                return property;
+            }
+            else
+            {
+                throw new Exception(validationResult.Errors.First().ErrorMessage);
+            }
+        }
     }
 }

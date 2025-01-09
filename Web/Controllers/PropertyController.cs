@@ -49,5 +49,20 @@ namespace Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PropertySaveModel>> UpdateProperty( int id,[FromBody] PropertySaveModel propertyModel)
+        {
+            try
+            {
+                var property = _mapper.Map<PropertySaveModel, Property>(propertyModel);
+                var updatedProperty = await _propertyService.UpdateProperty(id, property);
+                return Ok(_mapper.Map<Property, PropertySaveModel>(updatedProperty));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
